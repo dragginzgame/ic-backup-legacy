@@ -1,6 +1,13 @@
 # Current handoff — 2026-11-25
 
-## 0.106.0 release candidate
+## 0.106.0 published
+
+[ic-backup 0.106.0](https://crates.io/crates/ic-backup/0.106.0) shipped from
+tag `v0.106.0` at `043e449`. The release gate passed 247 native tests, five
+doctests and 11 Linux PocketIC scenarios. Registry readback verified the archive
+checksum, embedded commit, canonical licence and 181 tracked package files.
+The independent consumer built against the published version. Evidence is under
+`target/evidence/release-0.106.0/` and `target/publication/`.
 
 Both workspaces pin Toko Tooling 0.46.4. The registry exporter verified all
 62 managed files. The publication caller fixture exercises a relative evidence
@@ -10,11 +17,6 @@ error payloads through `StatusCertificateError`. Consumers that name those
 payloads need Platform 0.35. The archive comparison showed that Platform removed
 its optional stable-structures export, which Backup does not select. Approval,
 journal and bundle formats carry forward from 0.105.14.
-
-The earlier tooling-only pass is recorded under `target/evidence/tooling-0.46.4/`.
-The publication gate validates the final locked graph, archive and isolated
-consumer. Release evidence is under `target/evidence/release-0.106.0/` and
-`target/publication/`.
 
 Both locks select Platform 0.35.1, Types 0.21.5, Protocol 0.3.10,
 Host FS/Artifacts 0.80.8 and HTTP 0.80.3. Backup owns its Reqwest 0.13.5
