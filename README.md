@@ -3,8 +3,8 @@
 A standalone host-side Internet Computer backup library. Canic is a required
 integration and owns its adapter, membership, application maintenance and external
 obligations. Backup production depends on Platform and Host, without Canic runtime
-or control-plane crates. The 0.105.0 release is an experimental direct-controller
-library; qualification packages remain private.
+or control-plane crates. The library supports direct-controller and Canic Root
+routes. Qualification packages remain private.
 
 The [packaged consumer guide](crates/ic-backup/README.md) explains required adapters,
 capacity limits, recovery custody and legacy migration. The
@@ -39,13 +39,10 @@ intent and progress without reconstructing a plan or supplying live credentials.
 Use `connection.plan_restore(source, request, options)` to approve a same-canister
 restore. Its fixed loop allocates/uploads, compares metadata and every byte, loads
 and verifies stopped state, then derives `LoadedStopped` from the original journal.
-Capture and restore share one recorder and recovery boundary. Canic process,
-manager execution and maintenance/fence adapters are tracked in Canic
-[Canic #5](https://github.com/dragginzgame/canic/issues/5),
-[Canic #6](https://github.com/dragginzgame/canic/issues/6) and
-[Canic #7](https://github.com/dragginzgame/canic/issues/7).
-The selected direct-controller library workflow is implemented; full Canic
-integration remains dependent on those concrete consumers.
+Capture and restore share one recorder and recovery boundary. Canic v0.224.0
+qualified the published adapter with Backup 0.105.6 for one same-release
+persistent counter. The [handoff](docs/status/current.md#published-canic-integration--selected-persistent-counter)
+records the direct signer, Root recovery and application fencing evidence.
 
 The public capture replacement uses the distinct `ic-backup/host-store/1` marker.
 It refuses older stores intact. Their original implementation, authority and

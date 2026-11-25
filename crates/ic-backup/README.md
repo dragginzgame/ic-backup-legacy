@@ -1,5 +1,10 @@
 # IC Backup
 
+Version 0.106.0 uses `ic-platform` 0.35. Update direct Platform dependencies
+when naming `ic_platform::certificate::DecodeError` or `VerifyError` in
+`ic_backup::store::StatusCertificateError`. Existing approvals, journals and
+bundles use the same formats.
+
 Version 0.105.0 completes the Platform migration. Import public identities from
 `ic_platform_types::Principal` (0.21), and snapshot request/metadata types from
 `ic_platform_protocol::management_snapshots` (0.3). `ReadDataArgs` and
@@ -37,12 +42,11 @@ A direct capture uses a host signer that controls the child. For a Canic-managed
 child, use `connection.with_root_manager(manager, codec)` and
 `store.with_root_codec(codec)`. The host signer must control the configured Root,
 which must be the child's sole controller. Supply the codec matching the original
-approval whenever reopening the store. The optional Canic Root endpoints and
-checked decoder used for local qualification are still unpublished.
+approval whenever reopening the store. Canic v0.224.0 qualified the published
+Root adapter with Backup 0.105.6 for a same-release persistent counter.
 
 This incompatible restart replaces legacy `ic-backup`/`ic-backup-agent` APIs.
-Version 0.105.0 remains an experimental restart release. Rust 1.100 or later is
-required. Native checks target Linux x86-64 and macOS ARM64/x86-64;
+Rust 1.100 or later is required. Native checks target Linux x86-64 and macOS ARM64/x86-64;
 actual-IC qualification currently runs locally on Linux using PocketIC.
 
 ## Required integration

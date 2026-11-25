@@ -1,35 +1,45 @@
-# Current handoff — 2026-11-20
+# Current handoff — 2026-11-25
 
-## 0.105.13 published with Toko Tooling 0.45.23
+## 0.106.0 release candidate
 
-[ic-backup 0.105.13](https://crates.io/crates/ic-backup/0.105.13) shipped from tag `v0.105.13` at `6ae096f`. All 247 native tests, five doctests and 11 PocketIC journeys passed. Registry readback verified the checksum, embedded commit, license and all 181 tracked package files. An independent registry consumer built successfully. [Backup #5](https://github.com/dragginzgame/ic-backup/issues/5) and [Backup #6](https://github.com/dragginzgame/ic-backup/issues/6) are closed. Evidence is under `target/evidence/release-0.105.13/`.
+Both workspaces pin Toko Tooling 0.46.4. The registry exporter verified all
+62 managed files. The publication caller fixture exercises a relative evidence
+root with `CDPATH` set. Rust cleanup groups imports and decoder constants.
+The minor release adopts Platform 0.35.1. Backup exposes Platform certificate
+error payloads through `StatusCertificateError`. Consumers that name those
+payloads need Platform 0.35. The archive comparison showed that Platform removed
+its optional stable-structures export, which Backup does not select. Approval,
+journal and bundle formats carry forward from 0.105.14.
 
-The published source selects 0.45.23. The shared lint audit covered all five manifests and reported zero discrepancies. The dependency-pin and inheritance audit passed. The hygiene pass consolidated the chunked HTTP fixture builder and split long qualification evidence messages for readability.
+The earlier tooling-only pass is recorded under `target/evidence/tooling-0.46.4/`.
+The publication gate validates the final locked graph, archive and isolated
+consumer. Release evidence is under `target/evidence/release-0.106.0/` and
+`target/publication/`.
 
-CI inherits the caller’s Cargo network settings after preparing the locked dependency cache. Testkit independently verifies the installed simulator. The root workspace owns the published product version through `workspace.package.version`; the private qualification workspace keeps its own package identities.
-
-## Local tooling and current suppliers
-
-Both workspaces select Toko Tooling 0.46.0. The registry exporter verified all
-62 managed files. The Rust type-header and placement pass covers the product
-and private qualification packages. The next changelog entry is 0.105.14,
-a compatible tooling and documentation patch. All 247 native tests, five
-doctests and 11 Linux PocketIC journeys passed. Both workspaces passed strict
-Clippy and formatting. The shared lint audit found zero discrepancies across
-five manifests. Logs are under `target/evidence/tooling-0.46.0/`.
-
-The working locks select Platform 0.34.19, Types 0.21.4, Protocol 0.3.7,
-Host FS/Artifacts 0.80.7 and HTTP 0.80.2. Backup owns its Reqwest 0.13.5
-client. The qualification workspace uses Testkit 0.110.3.
-[Setup](../development/setup.md) owns tool preparation and dependency evidence.
+Both locks select Platform 0.35.1, Types 0.21.5, Protocol 0.3.10,
+Host FS/Artifacts 0.80.8 and HTTP 0.80.3. Backup owns its Reqwest 0.13.5
+client. Qualification selects Host Process 0.81.4, Testkit 0.110.4 and
+PocketIC 16.1. The first-party registry review confirmed these versions and
+Toko Tooling 0.46.4 were current at release preparation.
+[Setup](../development/setup.md) owns tool preparation.
 The [transfer contract](../architecture/capture-transfer.md#full-platform-port--2026-11-17)
 records Platform decoder and regression provenance.
 
+## 0.105.14 published
+
+[ic-backup 0.105.14](https://crates.io/crates/ic-backup/0.105.14) shipped from
+tag `v0.105.14` at `8532c64`. All 247 native tests, five doctests and 11 Linux
+PocketIC journeys passed. Registry readback verified all 181 tracked package
+files, the license, the embedded commit and the archive checksum. The independent
+consumer built against the published version. Evidence is under
+`target/evidence/release-0.105.14/`.
+
 ## Implemented scope
 
-The experimental direct-controller library implements capture, history/latest,
-held sources/payloads, same-ID/network/release restore, original-call recovery and
-completed-target succession. Capture/restore leave the application stopped.
+The experimental library implements capture, history/latest, held sources and
+payloads, same-ID/network/release restore, original-call recovery and
+completed-target succession. Capture and restore support direct-controller and
+Canic Root routes and leave the application stopped.
 One recorder preserves finite spending and exact original evidence; pending calls
 never repeat and changed/unknown files refuse intact. Completed replay requires
 no live authority or writes. [Capture](../architecture/capture-intent.md),

@@ -4,7 +4,7 @@ members = ["crates/ic-backup"]
 exclude = ["qualification"]
 
 [workspace.package]
-version = "0.105.14"
+version = "0.106.0"
 edition = "2024"
 rust-version = "1.100.0"
 license-file = "LICENSE.md"
@@ -26,12 +26,12 @@ sha2 = "0.11.1"
 thiserror = "2.0.18"
 
 # Production and tests
-ic-platform = { version = "0.34.11", default-features = false, features = ["ingress-packets", "ed25519", "ecdsa", "certificate-authentication", "certificate-construction"] }
+ic-platform = { version = "0.35.1", default-features = false, features = ["ingress-packets", "ed25519", "ecdsa", "certificate-authentication", "certificate-construction"] }
 ic-platform-protocol = { version = "0.3.3", default-features = false, features = ["management-snapshots"] }
 tokio = { version = "1.53.3", default-features = false, features = ["time"] }
 
 # Tests and tooling
-toko-tooling = "=0.46.0"
+toko-tooling = "=0.46.4"
 
 [workspace.lints.cargo]
 unused_dependencies = "deny"

@@ -13,13 +13,13 @@ use crate::store::{
     },
     operation::{Step, effect::Effect},
 };
-use ic_platform_protocol::management_snapshots::{
-    CanisterArgs, Extent, LoadSnapshotArgs, Offset, ReadDataArgs, ReadKind, Snapshot, SnapshotArgs,
-    SnapshotChunk, SnapshotMetadata, UploadDataArgs, UploadMetadataArgs, WriteKind,
-};
 use ic_platform_protocol::{
     candid::{Error as DecodeError, Limits},
-    management_snapshots::{decode_empty_response, decode_snapshot_allocation},
+    management_snapshots::{
+        CanisterArgs, Extent, LoadSnapshotArgs, Offset, ReadDataArgs, ReadKind, Snapshot,
+        SnapshotArgs, SnapshotChunk, SnapshotMetadata, UploadDataArgs, UploadMetadataArgs,
+        WriteKind, decode_empty_response, decode_snapshot_allocation,
+    },
 };
 use ic_platform_types::Principal;
 

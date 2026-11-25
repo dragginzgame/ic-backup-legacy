@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.106.0] - 2026-11-25
+
+### ⚠️ Breaking
+
+- Adopt Platform 0.35.1 in both workspaces. Consumers that explicitly name the
+  Platform certificate error payloads in `StatusCertificateError` must use
+  `ic-platform` 0.35. Existing approval, journal and bundle formats carry forward.
+
+### 🔧 Changed
+
+- Adopt Toko Tooling 0.46.4 in both workspaces. Publication evidence paths now
+  resolve from the caller's directory when `CDPATH` is set.
+  [Toko Tooling #406 — Resolve relative publication evidence roots independently of CDPATH](https://github.com/dragginzgame/toko-tooling/issues/406)
+
 ## [0.105.14] - 2026-11-20
 
 - Adopt Toko Tooling 0.46.0 and document handwritten Rust types across both workspaces.

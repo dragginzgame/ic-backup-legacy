@@ -1,9 +1,9 @@
-# Publication of the direct-controller library
+# Publication of the Backup library
 
-Backup's first registry release is an experimental Unix library for the scope
-described in the [packaged README](../../crates/ic-backup/README.md). Canic manager
-execution and application maintenance/fence adapters remain unfinished. This
-workflow neither enables them nor migrates legacy stores or release state.
+Backup is an experimental Unix library for the scope described in the
+[packaged README](../../crates/ic-backup/README.md). The
+[handoff](../status/current.md) records the qualified Canic routes and applications.
+Legacy stores and release state retain their original recovery ownership.
 
 The maintainer authorized the experimental 0.102.1 release on 2026-11-16. Only
 the root product workspace admits `crates-io`; both qualification packages remain
@@ -50,7 +50,7 @@ make publish
 ```
 
 `publish-check` invokes Cargo's real `--dry-run`; `publish` can upload. Both use
-the installed Toko 0.46.0 publication adapter, the fixed `ic-backup` roster and
+the installed Toko Tooling publication adapter, the fixed `ic-backup` roster and
 `crates-io` registry and exact versions from locked metadata. Unknown, duplicate,
 empty or private package selections refuse. Only a
 command-line `PACKAGE=ic-backup` may narrow the roster; qualification packages

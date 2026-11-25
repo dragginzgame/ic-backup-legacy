@@ -106,7 +106,9 @@ PUBLICATION_GATE=changed expect_failure publication_check
 git show HEAD:README.md > README.md
 : > target/effects
 # Environment cannot redirect the declared registry or widen the package roster.
-CARGO_PUBLISH_REGISTRY=other CARGO_PUBLISH_PACKAGES=other publication_check PACKAGE=ic-backup > target/success.log 2>&1
+# A relative evidence root resolves under the caller even with CDPATH set.
+CDPATH="$fixture" CARGO_PUBLISH_REGISTRY=other CARGO_PUBLISH_PACKAGES=other \
+    publication_check PACKAGE=ic-backup CARGO_PUBLISH_EVIDENCE_ROOT=target/publication > target/success.log 2>&1
 [[ "$(cat target/effects)" == "$(printf 'preflight\npublish --locked --registry crates-io --package ic-backup@%s --dry-run' "$PUBLICATION_VERSION")" ]]
 : > target/effects
 PUBLICATION_COMMAND_STATUS=23 expect_failure publication_check

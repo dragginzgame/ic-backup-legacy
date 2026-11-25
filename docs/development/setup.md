@@ -40,13 +40,12 @@ make fetch-dependencies
 ```
 
 Ordinary Cargo checks use the lockfile and may fetch missing dependencies. After preparing the cache, use `CARGO_NET_OFFLINE=true make check` to select offline validation. Hook activation is
-explicit through `make install-hooks`. Tooling 0.46.0 is adopted from its registry
-archive with SHA-256
-`4601d2785aaa14e01fd8656d6b3a57653337b214e027810c953595f1d91d6a8d`,
-source `b95958a0710fd9aea5952d2654f67710dc5b1c6d`. Both workspaces declare
-its exact pin and each member inherits the tooling dev-dependency.
+explicit through `make install-hooks`. Both workspaces declare the exact Toko
+Tooling pin and each member inherits it as a dev-dependency. The
+[snapshot receipt](../../.toko-tooling.snapshot) records the installed version
+and crates.io archive SHA-256.
 The canonical exporter installs twelve selected entrypoints, including the shared
-pre-commit formatter hook, with derived companions, and owns [.toko-tooling.snapshot](../../.toko-tooling.snapshot).
+pre-commit formatter hook, with derived companions.
 The shared publication adapter is selected; no producer regression suites or
 automatic version/tag release runner are installed. See the
 [publication workflow](publication.md) for gates, eligibility and recovery.

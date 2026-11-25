@@ -5,12 +5,14 @@ mod tests;
 
 use super::CaptureTransfer;
 use crate::store::BackupDigest;
-use ic_platform_protocol::management_snapshots::{Extent, SnapshotChunk};
 use ic_platform_protocol::{
     candid::{Error as DecodeError, Limits},
-    management_snapshots::{ReadDataArgs, ReadKind, decode_snapshot_data},
+    management_snapshots::{Extent, ReadDataArgs, ReadKind, SnapshotChunk, decode_snapshot_data},
 };
 use thiserror::Error;
+
+const MAX_DATA_BYTES: usize = 1024 * 1024;
+const MAX_REPLY_BYTES: usize = 2 * 1024 * 1024;
 
 ///
 /// DataReadError
@@ -45,12 +47,7 @@ impl CaptureTransfer<'_> {
             kind: self.kind(u64::from(ordinal)),
         })
     }
-}
 
-const MAX_DATA_BYTES: usize = 1024 * 1024;
-const MAX_REPLY_BYTES: usize = 2 * 1024 * 1024;
-
-impl CaptureTransfer<'_> {
     /// Decode one raw Candid reply against its zero-based scheduled data-read ordinal.
     ///
     /// Region replies must have exactly the requested length. Whole chunks must

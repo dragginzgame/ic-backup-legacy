@@ -46,9 +46,9 @@ extending the implemented inventory and payload checks.
   original integration, IDs, authority and evidence. The restart grants no reset,
   destructive cleanup or permission to interpret old records under new schemas.
 - Keep integrations responsible for membership, routing, application quiescence
-  and external-effect settlement. Follow the implemented direct-controller
-  authority/custody contracts; the manager-route proposal remains separate and
-  must not be treated as an enabled provider.
+  and external-effect settlement. Follow the implemented direct-controller and
+  Canic Root authority and custody contracts. Keep the profile-manager proposal
+  separate from the implemented Root route.
 - The maintainer authorized the experimental direct-controller release on
   2026-11-16. Root workspace metadata admits only `crates-io`; the product inherits
   it with `publish.workspace = true`. Qualification and any future independent
