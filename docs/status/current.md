@@ -1,6 +1,13 @@
 # Current handoff — 2026-11-25
 
-## 0.106.1 release scope
+## 0.106.1 published
+
+[ic-backup 0.106.1](https://crates.io/crates/ic-backup/0.106.1) shipped from
+tag `v0.106.1` at `7faaf01`. Both workspaces adopted Toko Tooling 0.46.5.
+The release gate passed 247 native tests, five doctests and all 11 Linux
+PocketIC scenarios. Registry readback verified the archive checksum, embedded
+commit, 182 tracked package files and licence. The independent consumer built
+against the registry release. Evidence is under `target/evidence/release-0.106.1/`.
 
 Local root admission, bounded inventory traversal and retained-file publication now
 share one private implementation behind the existing store API. The planned Canic
