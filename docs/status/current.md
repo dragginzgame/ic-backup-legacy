@@ -1,5 +1,29 @@
 # Current handoff — 2026-11-25
 
+## 0.106.1 release scope
+
+Local root admission, bounded inventory traversal and retained-file publication now
+share one private implementation behind the existing store API. The planned Canic
+fleet catalog consumes completion reports. Its subnet placement and optional fleet
+configuration belong to the integration. See the [storage boundary](../architecture/local-inventory.md#storage-and-fleet-reporting).
+
+The isolated PocketIC consumer recovered the exact first receipt through
+`inspect()?.completed` after a second capture and replica shutdown. Evidence is
+under `qualification/target/fixtures/capture-Isolated-1994372-1795627037392543521/`.
+The release-profile native suite passed 247 tests and five doctests. Fleet
+deployment, catalog acknowledgement and Blob-backed restore remain open in
+[Canic #111](https://github.com/dragginzgame/canic/issues/111),
+[#112](https://github.com/dragginzgame/canic/issues/112) and
+[#113](https://github.com/dragginzgame/canic/issues/113).
+
+Backup 0.106.1 exposes authenticated snapshot metadata to local readers via
+`CaptureSource::metadata()`. The direct-controller PocketIC fixture also
+exercises an exclusive handoff of completed history to fresh files, including
+restore of the older of two captures after changing live stable memory. Evidence
+is under `qualification/target/fixtures/capture-Isolated-2070040-1795627404513500576/`. The
+[local-store contract](../design/local-store.md#moving-completed-capture-data-between-hosts)
+records the files required and the outstanding host-loss and Blob requirements.
+
 ## 0.106.0 published
 
 [ic-backup 0.106.0](https://crates.io/crates/ic-backup/0.106.0) shipped from

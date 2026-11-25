@@ -100,9 +100,10 @@ impl<'store> CaptureSource<'_, 'store> {
         (self.payload, self.metadata)
     }
 
-    pub(in crate::store) fn metadata(
-        &self,
-    ) -> &ic_platform_protocol::management_snapshots::SnapshotMetadata {
+    /// Original authenticated IC metadata, including region sizes and stored chunk hashes.
+    /// Local readers can use these sizes and hashes to request data from this source.
+    #[must_use]
+    pub fn metadata(&self) -> &ic_platform_protocol::management_snapshots::SnapshotMetadata {
         &self.metadata
     }
 

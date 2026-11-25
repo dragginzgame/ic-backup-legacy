@@ -454,7 +454,7 @@ checksum = "6ebaa1a2bf1290ab3bfe5a7b771d050ebffab2711c19a81691c683a5144a25de"
 dependencies = [
  "curve25519-dalek",
  "ed25519",
- "sha2 0.11.1",
+ "sha2 0.11.2",
  "subtle",
 ]
 
@@ -490,7 +490,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e35d6e78f4cebb90e51d543db8fe41528851d6deeef6ef21ebd4bfdc1e784776"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -763,7 +763,7 @@ dependencies = [
 
 [[package]]
 name = "ic-backup"
-version = "0.106.0"
+version = "0.106.1"
 dependencies = [
  "ic-host-artifacts",
  "ic-host-fs",
@@ -774,7 +774,7 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
- "sha2 0.11.1",
+ "sha2 0.11.2",
  "thiserror 2.0.21",
  "tokio",
  "toko-tooling",
@@ -794,19 +794,19 @@ dependencies = [
 
 [[package]]
 name = "ic-host-artifacts"
-version = "0.80.8"
+version = "0.80.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d8b55a21c287f361bdca10151f5404f5f658024b037284d83f8a7a7e3181041"
+checksum = "6e4663171264c16016311a52ef2e4da62b653f409c162f45cc1e6812e07601b8"
 dependencies = [
- "sha2 0.11.1",
+ "sha2 0.11.2",
  "thiserror 2.0.21",
 ]
 
 [[package]]
 name = "ic-host-fs"
-version = "0.80.8"
+version = "0.80.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4108c38f5cddb31fb982987a35522608f406a3e2d70d929667a69a391c52c80f"
+checksum = "e4f8d75874d7320ab50edd12a371e772205403d672865c97976e1307f1d86215"
 dependencies = [
  "ic-host-artifacts",
  "rustix",
@@ -815,9 +815,9 @@ dependencies = [
 
 [[package]]
 name = "ic-host-http"
-version = "0.80.3"
+version = "0.80.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "783b689bef6a85e345c2d092b0048f29805a737ab51de309d9471224401e14da"
+checksum = "da55127d9c4719f82297600109befb0cadf7d493eed20c46764ae0ba8ccbfa11"
 dependencies = [
  "reqwest",
  "thiserror 2.0.21",
@@ -863,7 +863,7 @@ dependencies = [
  "data-encoding",
  "serde",
  "serde_bytes",
- "sha2 0.11.1",
+ "sha2 0.11.2",
  "thiserror 2.0.21",
 ]
 
@@ -1121,7 +1121,7 @@ dependencies = [
  "ecdsa",
  "elliptic-curve",
  "primeorder",
- "sha2 0.11.1",
+ "sha2 0.11.2",
  "wnaf",
 ]
 
@@ -1385,7 +1385,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -1519,7 +1519,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -1576,7 +1576,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -1751,9 +1751,9 @@ dependencies = [
 
 [[package]]
 name = "sha2"
-version = "0.11.1"
+version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47d7069beb7d6ac7b9acd1039986e73443f24234f41074da099d6f994ac9ad19"
+checksum = "5b0e5c7d67bc53f435386b2130fdc900488c5703770f6d8a4633060e34288a27"
 dependencies = [
  "cfg-if",
  "cpufeatures 0.3.1",
@@ -1963,9 +1963,9 @@ dependencies = [
 
 [[package]]
 name = "toko-tooling"
-version = "0.46.4"
+version = "0.46.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d3889bff0f8ff6dc8c80b161c908f4b598125b55bf55f18146471f9ac3294cff"
+checksum = "038380e2f80a7301dee19c19e2afd38a0bfbbfc41b447a1c81178afc1de94bc7"
 
 [[package]]
 name = "tower"
@@ -2215,7 +2215,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]

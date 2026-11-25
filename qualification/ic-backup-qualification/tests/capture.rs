@@ -196,6 +196,50 @@ async fn complete(
     panic!("fixed capture did not complete within original call allowance")
 }
 
+// Copy this quiescent, fixture-owned store to fresh files. The fixture relinquishes
+// the original before copying and runs all subsequent operations on the receiver.
+fn reopen_copied_fixture(
+    evidence: &Path,
+    receipt: &BackupSummary,
+    approval: BackupDigest,
+) -> BackupStore {
+    let original = evidence.join("retired-store");
+    let receiver = evidence.join("store");
+    fs::rename(&receiver, &original).unwrap();
+    fs::DirBuilder::new().mode(0o700).create(&receiver).unwrap();
+    let store = BackupStore::initialize(&receiver).unwrap();
+    let copy_entries = |name: &str| {
+        for entry in fs::read_dir(original.join(name)).unwrap() {
+            let entry = entry.unwrap();
+            assert!(
+                std::process::Command::new("cp")
+                    .arg("-Rp")
+                    .arg(entry.path())
+                    .arg(receiver.join(name).join(entry.file_name()))
+                    .status()
+                    .unwrap()
+                    .success()
+            );
+        }
+    };
+    copy_entries("bundles");
+    assert_eq!(
+        store
+            .verify_payload(
+                &receipt.bundle_id,
+                receipt.manifest_sha256,
+                receipt.payload_bytes.try_into().unwrap()
+            )
+            .unwrap(),
+        *receipt
+    );
+    assert!(store.open_capture(&receipt.bundle_id, approval).is_err());
+    copy_entries("operations");
+    copy_entries("targets");
+
+    store
+}
+
 async fn exercise(evidence: &Path, prepared: PreparedServer, mode: Mode) {
     let capacity = matches!(mode, Mode::Capacity);
     let mut server = server::RetainedServer::start(
@@ -555,6 +599,12 @@ async fn exercise(evidence: &Path, prepared: PreparedServer, mode: Mode) {
         (plan.clone(), receipt.clone())
     };
     assert_eq!(fs::read(&original_journal).unwrap(), original_bytes);
+    let store = if matches!(mode, Mode::Isolated) {
+        drop(store);
+        reopen_copied_fixture(evidence, &receipt, approval)
+    } else {
+        store
+    };
     let mut operation = store.open_capture(&receipt.bundle_id, approval).unwrap();
     let mut source = store
         .open_capture_source(
@@ -578,7 +628,7 @@ async fn exercise(evidence: &Path, prepared: PreparedServer, mode: Mode) {
                 snapshot_id,
                 kind: ReadKind::WasmModule(ic_platform_protocol::management_snapshots::Extent {
                     offset: 0,
-                    size: wasm.len() as u64
+                    size: source.metadata().wasm_module_size
                 })
             })
             .unwrap(),
@@ -842,6 +892,12 @@ async fn exercise(evidence: &Path, prepared: PreparedServer, mode: Mode) {
     server::close(owned, &mut server).await;
     allowed.store(false, Ordering::SeqCst);
     let mut operation = store.open_capture(&receipt.bundle_id, approval).unwrap();
+    // A fleet reporter can recover the original receipt even after a newer capture,
+    // with the replica offline and without advancing the operation.
+    assert_eq!(
+        operation.inspect().unwrap().completed.as_ref(),
+        Some(&receipt)
+    );
     assert_eq!(
         operation.advance(&mut connection).await.unwrap(),
         OperationProgress::Complete(Box::new(receipt.clone()))

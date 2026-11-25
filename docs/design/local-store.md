@@ -47,6 +47,34 @@ Each purpose has one immutable intent and one journal of common call/observation
 record, assembly digest or mutable spending file exists. No pruning is implemented.
 Source dependencies remain in original restore plans and retained files.
 
+### Moving completed capture data between hosts
+
+Local readers can get region lengths and chunk hashes from the admitted
+`CaptureSource::metadata()` and read bounded bytes through `read_data`. The
+legacy manifest and its [regressions](https://github.com/dragginzgame/ic-backup-legacy/blob/4ae087fad8c23de712aa60bf569bde4b2b932651/crates/ic-backup/src/ops/persistence/download_journal/manifest/tests/mod.rs)
+distinguish a replayable declaration from possession of the original journal.
+Here the receiver can verify copied bundle bytes against the selected digest.
+Reopening the operation additionally requires its original intent, journal,
+evidence and target custody. Preserve the selected approval independently.
+
+The isolated direct-controller fixture exercises an exclusive handoff after
+two completed captures. All operation handles close, the original store goes
+out of use, and private files are copied into a freshly initialized store.
+The fixture first verifies payloads and observes capture admission fail with
+only the bundles present. With the operation and target trees present, it
+selects the older capture, authenticates the latest predecessor and runs the
+ordinary same-canister restore under fresh approval.
+
+An unattended periodic copy has a different failure case. Later target ownership
+or a pending management call can exist after the last copy. A valid manifest
+cannot establish that a replacement host has the latest spending and ownership
+history or that its predecessor has stopped. Before enabling host-loss restore,
+the integration needs evidence of that continuity and exclusive custody.
+Blob publication also requires an authorized durable byte writer and verified
+readback, with private access for payloads and retained evidence. The reviewed
+[Blob supplier status](https://github.com/dragginzgame/ic-blob-storage/blob/dc88d78cd43753fae8f805a6e4af2747b0fb2a5c/docs/status/current.md)
+records the outstanding gateway upload witness and proof-recovery requirements.
+
 ## Completion and interrupted publication
 
 Capture advance authenticates all original results, materializes exact payload,

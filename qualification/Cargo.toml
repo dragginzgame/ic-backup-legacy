@@ -10,7 +10,7 @@ publish = false
 
 [workspace.dependencies]
 # Production and tests
-ic-backup = { path = "../crates/ic-backup", version = "0.106.0" }
+ic-backup = { path = "../crates/ic-backup", version = "0.106.1" }
 ic-platform = { version = "0.35.1", default-features = false, features = ["ed25519", "ingress-packets"] }
 tokio = { version = "1.53.3", default-features = false, features = ["rt", "net", "time"] }
 
@@ -20,7 +20,7 @@ ic-host-process = "0.81.0"
 ic-platform-protocol = { version = "0.3.3", default-features = false, features = ["management-snapshots"] }
 ic-platform-types = { version = "0.21.2", default-features = false, features = ["principal-self-authenticating"] }
 ic-testkit = { version = "0.110.0", default-features = false, features = ["managed-server"] }
-toko-tooling = "=0.46.4"
+toko-tooling = "=0.46.5"
 
 [workspace.lints.cargo]
 unused_dependencies = "deny"

@@ -204,6 +204,10 @@ impl CaptureOperation {
     }
 
     /// Authenticate retained progress without clock, signer, guard, HTTP or writes.
+    ///
+    /// To retry reporting a completed backup after a host restart, reopen the
+    /// original capture using its ID and approval, then read `completed` here.
+    /// The receipt retains its original times even after a newer capture.
     /// # Errors
     /// Refuses incomplete/changed custody, invalid evidence or settled policy failures.
     pub fn inspect(&self) -> Result<OperationView, Error> {

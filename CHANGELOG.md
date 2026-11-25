@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.106.1] - 2026-11-25
+
+### ✨ Added
+
+- Read authenticated region sizes and chunk hashes with `CaptureSource::metadata()` when downloading from a completed local capture.
+
+### 🔧 Changed
+
+- Consolidate private local storage operations and verify same-canister restore from an exclusive copy of completed capture history.
+- Adopt Toko Tooling 0.46.5. `make deps-list` lists root workspace packages by default. Set `DEPENDENCY_MANIFEST=qualification/Cargo.toml` to list the qualification packages.
+
 ## [0.106.0] - 2026-11-25
 
 ### ⚠️ Breaking

@@ -45,6 +45,23 @@ which must be the child's sole controller. Supply the codec matching the origina
 approval whenever reopening the store. Canic v0.224.0 qualified the published
 Root adapter with Backup 0.105.6 for a same-release persistent counter.
 
+### Reading a local backup
+
+Capture downloads the snapshot into the private store on the host running the
+operation. Controller authority is used during capture. Later, a reader with
+filesystem access can reopen the capture by ID and approval, recover its
+completed receipt with `inspect()`, and call `open_capture_source` with that
+receipt and a payload limit. `CaptureSource::metadata()` provides the region
+sizes and chunk hashes. `read_data` returns verified ranges up to 1 MiB, or a
+whole stored chunk, for the original target and snapshot. Reading a completed
+capture locally requires no live signer. Access from another machine requires
+access to the private store.
+
+Retain the operation evidence and target ownership alongside the payload when
+planning for restore. A fleet history receipt identifies the capture. Restore
+also needs the latest exclusive operation history, the original approved source
+and independently approved destination operation.
+
 This incompatible restart replaces legacy `ic-backup`/`ic-backup-agent` APIs.
 Rust 1.100 or later is required. Native checks target Linux x86-64 and macOS ARM64/x86-64;
 actual-IC qualification currently runs locally on Linux using PocketIC.

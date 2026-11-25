@@ -10,6 +10,33 @@ Authenticated same-store source admission and complete stopped restore are
 implemented through the [local-store contract](../design/local-store.md).
 Standalone arbitrary-bundle import is outside the selected scope.
 
+## Storage and fleet reporting
+
+The private `store::local` module owns root initialization and admission, held
+directory traversal for inventory, bounded file reads and retained-file publication.
+`BackupStore` owns the public scan options and result ordering. Operation custody
+continues to own target locking, journal spending and the decision to publish.
+The held directories preserve the original identity and closing checks described
+in the focused legacy review below.
+
+Canic owns the proposed opt-in fleet configuration and one history canister per
+participating subnet. The first backend is the host's private local store.
+After manual capture, report the `BackupSummary` returned by
+`OperationProgress::Complete`. If the report or its acknowledgement is lost,
+reopen the original operation with its ID, plan approval and applicable Root
+codec. Report `inspect()?.completed` only when it contains a receipt. Looking
+up the latest backup could select a newer capture of the same canister.
+
+Within the fleet, key a report by network commitment, target principal and
+bundle ID. Preserve the full receipt, including IC capture time and original
+host completion time. Repeating an identical receipt should acknowledge the
+existing entry. A conflicting receipt should leave that entry intact. Restore
+requires the original operation, independent approval and fresh source admission.
+Blob selection additionally requires durable payload publication and readback.
+See the Canic issues for [fleet provisioning and history](https://github.com/dragginzgame/canic/issues/111),
+[manual reporting](https://github.com/dragginzgame/canic/issues/112) and
+[Blob storage](https://github.com/dragginzgame/canic/issues/113).
+
 ## Custody and initialization
 
 The caller supplies an existing empty private directory and excludes external
